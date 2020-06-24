@@ -103,3 +103,45 @@ end
       end
     end
   end
+
+
+# has_many　で追加されるメソッド
+  # collection
+  # collection<<(object, ...)
+  # collection.delete(object, ...)
+  # collection.destroy(object, ...)
+  # collection=(objects)
+  # collection_singular_ids
+  # collection_singular_ids=(ids)
+  # collection.clear
+  # collection.empty?
+  # collection.size
+  # collection.find(...)
+  # collection.where(...)
+  # collection.exists?(...)
+  # collection.build(attributes = {}, ...)
+  # collection.create(attributes = {})
+  # collection.create!(attributes = {})
+  # collection.reload
+
+# belong_to　で追加されるメソッド
+  # association
+  # association=(associate)
+  # build_association(attributes = {})
+  # create_association(attributes = {})
+  # create_association!(attributes = {})
+  # reload_association
+
+
+# ライフサイクルフック
+  # before_add
+  # after_add
+  # before_remove
+  # after_remove
+
+# STIについて
+  # - classの継承をすることで共通部分のメソッドを統一できる
+  # - データベースを一つにすることができるため、保守性の向上
+  # - データベース上での識別はtypeカラムで判断できる
+  # - 個別にメソッドが変わってくる場合、メソッドのオーバーライドやyieldで、うまく処理を別にする
+  # - null制約に課題はある。
