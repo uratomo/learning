@@ -57,7 +57,6 @@ class  Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
-      this_amount = element.charge
 
 
       # rental_point加算
@@ -67,8 +66,8 @@ class  Customer
         frequent_renter_points += 1
       end
       # このレンタルの料金を表示
-      result += "\T" + element.movie.title + "\t" + this_amount.to_s + "\n"
-      total_amount += this_amount
+      result += "\T" + element.movie.title + "\t" + element.charge.to_s + "\n"
+      total_amount += element.charge
     end
 
     # 最終
