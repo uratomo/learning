@@ -12,6 +12,23 @@ class Movie
   def initialize(title, price_code)
     @title, @price_code = title, price_code
   end
+
+  def charge(days_rented)
+    result = 0
+    # 計算をする
+    case element.movie.price_code
+    when REGULAR
+      result +=2
+      result += (element.days_rented - 2) * 1.5 if element.days_rented > 2
+    when NEW_RELEASE
+      result += element.days_rented * 3
+    when CHILDRENS
+      result += 1.5
+      # すでに足した分だけ削ってるだけ
+      result += (element.days_rented - 3) * 1.5 if element.days_rented > 3
+    end
+    result
+  end
 end
 
 class Rental
@@ -23,23 +40,6 @@ class Rental
 
   def frequent_renter_points
     element.movie.price_code == Movie.NEW_RELEASE && element.days_rented > 1 ? 2 : 1
-  end
-
-  def charge(element)
-    result = 0
-    # 計算をする
-    case element.movie.price_code
-    when Movie::REGULAR
-      result +=2
-      result += (element.days_rented - 2) * 1.5 if element.days_rented > 2
-    when Movie::NEW_RELEASE
-      result += element.days_rented * 3
-    when Movie::CHILDRENS
-      result += 1.5
-      # すでに足した分だけ削ってるだけ
-      result += (element.days_rented - 3) * 1.5 if element.days_rented > 3
-    end
-    result
   end
 end
 
@@ -57,7 +57,7 @@ class  Customer
     @rental << arg
   end
 
-  def statement
+  def html_statement
     frequent_renter_points = 0
     result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
