@@ -40,20 +40,8 @@ class  Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
-      this_amount = 0
+      this_amount = amount_for(element)
 
-      # 計算をする
-      case element.movie.price_code
-      when Movie::REGULAR
-        this_amount +=2
-        this_amount += (element.days_rented - 2) * 1.5 if element.days_rented > 2
-      when Movie::NEW_RELEASE
-        this_amount += element.days_rented * 3
-      when Movie::CHILDRENS
-        this_amount += 1.5
-        # すでに足した分だけ削ってるだけ
-        this_amount += (element.days_rented - 3) * 1.5 if element.days_rented > 3
-      end
 
       # rental_point加算
       frequent_renter_points += 1
@@ -69,6 +57,23 @@ class  Customer
     # 最終
     result += "Amount owed is #{total_amount}\n"
     result += "you earned #{frequent_renter_points} frequent points"
+    result
+  end
+
+  def amount_for(element)
+    result = 0
+    # 計算をする
+    case element.movie.price_code
+    when Movie::REGULAR
+      result +=2
+      result += (element.days_rented - 2) * 1.5 if element.days_rented > 2
+    when Movie::NEW_RELEASE
+      result += element.days_rented * 3
+    when Movie::CHILDRENS
+      result += 1.5
+      # すでに足した分だけ削ってるだけ
+      result += (element.days_rented - 3) * 1.5 if element.days_rented > 3
+    end
     result
   end
 end
